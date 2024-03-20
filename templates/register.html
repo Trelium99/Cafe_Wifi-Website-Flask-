@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Register</h1>
+    <button><a href="{{ url_for('home') }}">Return</a></button>
+    <form method="POST" action="{{ url_for('register_user') }}">
+        {% for field in form.errors %}
+            {% if form.errors[field] %}
+                <ul class="errors">
+                {% for error in form.errors[field] %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endfor %}
+        {{ form.csrf_token }}
+        {{ form.user_name.label }} {{ form.user_name(class_="form_field") }}
+        {{ form.user_email.label }} {{ form.user_email(class_="form_field") }}
+        {{ form.user_password.label }} {{ form.user_password(class_="form_field") }}
+        {{ form.submit(class_="form_button") }}
+    </form>
+{% endblock%}

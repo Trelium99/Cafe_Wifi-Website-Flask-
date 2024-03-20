@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block styles %}{% endblock %}
+
+{% block content %}
+    <h1>Add a Cafe Below.</h1>
+    <button><a href="{{ url_for('home') }}">Return</a></button>
+
+    <form method="POST" action="{{ url_for('add_cafe') }}">
+        {% for field in form.errors %}
+            {% if form.errors[field] %}
+                <ul class="errors">
+                {% for error in form.errors[field] %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endfor %}
+        {{ form.csrf_token }}
+        {{ form.cafe_name.label }} {{ form.cafe_name(class_="form_field") }}
+        {{ form.map_url.label }} {{ form.map_url(class_="form_field") }}
+        {{ form.img_url.label }} {{ form.img_url(class_="form_field") }}
+        {{ form.location.label }} {{ form.location(class_="form_field") }}
+        {{ form.has_sockets.label }} {{ form.has_sockets(class_="form_field") }}
+        {{ form.has_toilet.label }} {{ form.has_toilet(class_="form_field") }}
+        {{ form.has_wifi.label }} {{ form.has_wifi(class_="form_field") }}
+        {{ form.can_take_calls.label }} {{ form.can_take_calls(class_="check") }}
+        {{ form.seats.label }} {{ form.seats(class_="form_field") }}
+        {{ form.coffee_price.label }} {{ form.coffee_price(class_="form_field") }}
+        {{ form.submit(class_="form_button") }}
+    </form>
+{% endblock %}

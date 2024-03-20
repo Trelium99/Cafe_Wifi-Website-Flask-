@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Login</h1>
+    <button><a href="{{ url_for('home') }}">Return</a></button>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+           <p class="flash">{{ message }}</p>
+          {% endfor %}
+       {% endif %}
+   {% endwith %}
+    <form method="POST" action="{{ url_for('login') }}">
+        {{ form.csrf_token }}
+        {{ form.login_email.label }} {{ form.login_email(class_="form_field") }}
+        {{ form.login_password.label }} {{ form.login_password(class_="form_field") }}
+        {{ form.submit(class_="form_button") }}
+    </form>
+{% endblock%}

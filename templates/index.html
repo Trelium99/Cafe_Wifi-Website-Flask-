@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+
+{% block styles %}
+{% endblock %}
+
+{% block title %}<title>Coffee and Wi-fi</title>{% endblock %}
+{% block content %}
+    <h1>Find a Cafe with Wi-fi Near You!</h1>
+    <span>
+        {% if current_user.is_authenticated %}
+            <button><a href="{{ url_for('logout') }}">Log Out</a> </button>
+            <button><a href="{{ url_for('add_cafe') }}">Add Cafe</a></button>
+        {% else %}
+            <button><a href="{{ url_for('login') }}">Login</a> </button>
+            <button><a href="{{ url_for('register_user') }}">Register</a></button>
+        {% endif %}
+    </span>
+    <div class="content-table">
+        <table>
+            <tr>
+                <th>Index</th>
+                <th>Name</th>
+                <th>Maps Url</th>
+                <th>Website</th>
+                <th>Location</th>
+                <th>Socket Rating</th>
+                <th>Toilet Rating</th>
+                <th>Wi-fi Rating</th>
+                <th>Can Take Calls</th>
+                <th>Seats</th>
+                <th>Coffee Price</th>
+                {% if current_user.id == 1 %}
+                <th>Remove</th>
+                {% endif %}
+            </tr>
+            {%for item in table_data %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                    <td><a href="{{ item.map_url }}">Click</a></td>
+                    <td><a href="{{ item.img_url }}">Click</a></td>
+                    <td>{{ item.location }}</td>
+                    <td>{{ item.has_socket }}</td>
+                    <td>{{ item.has_toilet }}</td>
+                    <td>{{ item.has_wifi }}</td>
+                    {% if item.can_take_calls %}
+                        <td>Yes</td>
+                    {% else: %}
+                        <td>No</td>
+                    {% endif %}
+                    <td>{{ item.seats }}</td>
+                    <td>{{ item.coffee_price }}</td>
+                    {% if current_user.id == 1 %}
+                    <td><button class="del_but"><a href="{{ url_for('delete_cafe', cafe_id=item.id) }}">Delete</a></button></td>
+                    {% endif %}
+                </tr>
+            {% endfor%}
+        </table>
+    </div>
+{% endblock %}
