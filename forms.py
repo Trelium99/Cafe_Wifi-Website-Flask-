@@ -13,7 +13,7 @@ class AddCafeForm(FlaskForm):
     has_wifi = IntegerField("Wifi Rating", validators=[DataRequired(), NumberRange(0, 5)])
     can_take_calls = BooleanField("Will Take Calls?")
     seats = StringField("Number of Seats", validators=[DataRequired()])
-    coffee_price = FloatField("Coffee Price", validators=[DataRequired(message="Coffee Price field is required."), ])
+    coffee_price = StringField("Coffee Price", validators=[DataRequired(message="Coffee Price field is required."), ])
     submit = SubmitField("Add Cafe")
 
 
